@@ -1,0 +1,51 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <h2><span class="label label-info label-block">Preview Site</span></h2>
+
+    <div class="modal-header" align="center">
+      <img class="img" id="img_logo" height="10%" weight="10%" src="/assets/batch_batch_data.jpg" >
+      </button>
+    </div>
+    <div id="div-forms">
+      <div class="modal-body">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @site.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @site.address %>
+</p>
+
+<p>
+  <strong>District:</strong>
+  <%= @site.districs %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @site.city %>
+</p>
+
+<p>
+  <strong>Postal code:</strong>
+  <%= @site.postalcode %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @site.user.username %>
+</p>
+
+        <br/>
+        <div class="modal-footer">
+          <div class="actions">
+            <%= link_to 'Edit', edit_site_path(@site) , :class => 'btn btn-warning '  %>
+            <%= link_to 'Back', sites_path , :class => 'btn btn-default '  %>
+          </div></div>
+
+      </div></div></div></div>

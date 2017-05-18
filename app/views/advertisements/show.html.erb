@@ -1,0 +1,81 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+        <h2><span class="label label-info label-block">Preview Advertisement</span></h2>
+
+    <div class="modal-header" align="center">
+      <img class="img" id="img_logo" height="10%" weight="10%" src="/assets/batch_batch_advertising.jpg" >
+      </button>
+    </div>
+    <div id="div-forms">
+      <div class="modal-body">
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Add type:</strong>
+  <%= @advertisement.add_type %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @advertisement.contecnt %>
+  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Preview content</button>
+
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @advertisement.status %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @advertisement.user.username %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @advertisement.site.name %>
+</p>
+
+<p>
+  <strong>Zone:</strong>
+  <%= @advertisement.zone.name %>
+</p>
+
+        <br/>
+        <div class="modal-footer">
+          <div class="actions">
+            <%= link_to 'Edit', edit_advertisement_path(@advertisement) , :class => 'btn btn-warning '  %>
+            <%= link_to 'Back', advertisements_path , :class => 'btn btn-default '  %>
+          </div></div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Preview content</h4>
+      </div>
+      <div class="modal-body">
+        <% if @advertisement.add_type == '1' %>
+        <img src="/uploads/<%= @advertisement.contecnt %>" height="80%" width="80%">
+        <% else %>
+        <video controls>
+          <source src="/uploads/<%= @advertisement.contecnt %>"  type="video/mp4">
+          <source src="/uploads/<%= @advertisement.contecnt %>"  type="video/ogg">
+          <source src="/uploads/<%= @advertisement.contecnt %>"  type="video/3gp">
+          Your browser does not support the video tag.
+        </video>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+      </div></div></div>

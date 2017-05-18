@@ -1,0 +1,78 @@
+<h1 align="center"><strong>Project: Parking Management</strong></h1>
+<h2 align="center">Problem Set 4: Odds, Ends, and User Management</h2>
+<h3 align="center">Powered by Web3 Group <br>(Theekshana, Chawisa)</h3>
+
+<h3>Content</h3>
+<pre>
+  <b>Potential content available from the site:</b>
+  - Available parking location and parking lots
+  <!--comment out on Nov 6  <li>Parking reservation</li> -->- Related advertisement
+</pre>
+
+<h3>Technology</h3>
+<pre>
+  This site will use the Apache web server with Ruby on Rails application and PostgreSQL Database Management System.
+  <b>Basic information processing requirements:</b>
+  - User database: storing id, username, email address, encrypted password, and so on.
+  - Role database: storing id, role name. Within this database, it contains static data which is consisted of 6 items
+    (registered, banned, user, admin, advertiser, and viewer)
+  - Advertisement database: storing id, name of content, detail of advertisement
+</pre>
+
+<h3>SQL Injection and XSS attacks</h3>
+<pre>
+  As from what we have learned in class and from our research from <a href="http://www.w3schools.com/sql/sql_injection.asp">W3School</a> and <a href="http://guides.rubyonrails.org/security.html#sql-injection">RubyOnRails Guide</a>.
+  First of all, in our current and further implementation, we are trying to use a whitelist approach for validating all input fields
+  by human (or maybe robot).
+  For example, Username field, some symbol like ' , -- are not necessary at all. In between, if we allowed
+  user input with that kind of symbol, it might harm our web application as well.
+  So, we planned to get through these issues by doing 2 tasks as follow:
+  1) Clarify what is the exactly input and validation. (Basic and Business Validation must be included)
+  2) Use a tool like <a href = "https://www.owasp.org/index.php/Main_Page">OWASP</a> (Open Web Application Security Project) which is available under a free and open software license.
+    We can use OWASP to test our web application before go live. OWASP has a feature to report us whether there are any threat on our website.
+</pre>
+
+<h3>Audit your software for any sensitive data like database passwords make sure they are secure.
+  <br>Document the result of your audit and plan</h3>
+<pre>
+  Our sensitive data can be divided into 2 parts:
+  <br>1) Data in our website: In our website, we also contain some personal data which is username, email, and password.
+    However, we are also concern about SQL Injection and XSS attack that may allow unexpected thing which is caused by any intruder.
+    Therefore, as from the above part of SQL Injection and XSS attack, we believe that our process can help our website secure.
+  <br>2) Technology Stack: our web application are built by Ruby on Rails 4.2.7. Whether this version is not the latest one,
+    but we can be sure that it is more stable than <a href = "http://weblog.rubyonrails.org/2016/6/30/Rails-5-0-final/">the latest version</a>.
+    Moreover, we also add very secure protocol like TLS. Many famous Thai banking online also use this protocol for securing their connection instead of SSLv3.
+</pre>
+
+<h3>User Data Model</h3>
+<pre>
+  The below image show the entities of user data model with its fields and constraints.</pre>
+<img src="/assets/UserMngtDesign.png" width = "50%" height="50%"><br>
+
+<h3>User Registration and Management Page Flow</h3>
+<pre>
+  This UML picture illustrates our site's page flow, focus on user registration and management part.</pre>
+<img src="/assets/page_flow_ps4.png" width = "50%" height="50%"><br>
+
+<h3>Setup SSL for login page with TLS Protocol</h3>
+<pre>
+  Reference : <a href="https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-12-04">Create A SSL Certificate on Apache for Ubuntu</a></pre>
+
+<h3>Issue Tracker and CI Server</h3>
+<pre>
+  We use our <a href="https://web3.cs.ait.ac.th/redmine">Redmine</a> and <a href="https://web3.cs.ait.ac.th/jenkins/"> Jenkin</a>. Below image is one of our Jenkin email.
+<img src="/assets/mail_jenkin_ps4.png" width = "80%" height="80%"><br></pre>
+
+<h3>Check model for referential integrity and queries that take a long time</h3>
+<pre>
+  Since we've just implemented only on user module so there is no part that we need to optimize it.
+  <img src="/assets/profiling_ps4.png" width = "80%" height="80%"><br></pre>
+<code>rack-mini-profiler</code> gem is used, the above image shows the longest time retrieval of our website.
+
+<h3>Basics solution</h3>
+<pre>
+  Please check on our <a href="https://web3.cs.ait.ac.th">main page</a></pre>
+
+<h3>Latest Database Dump</h3>
+<pre>
+  <a href="http://web3.cs.ait.ac.th/pg_dump.txt">database dump</a></pre>

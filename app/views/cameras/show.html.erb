@@ -1,0 +1,49 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <h2><span class="label label-info label-block">Preview Camera</span></h2>
+
+    <div class="modal-header" align="center">
+      <img class="img" id="img_logo" height="10%" weight="10%" src="/assets/batch_batch_camera.jpg" >
+      </button>
+    </div>
+    <div id="div-forms">
+      <div class="modal-body">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @camera.name %>
+</p>
+
+<p>
+  <strong>Ip address:</strong>
+  <%= @camera.ip_address %>
+</p>
+
+<p>
+  <strong>Cam type:</strong>
+  <%= @camera.cam_type %>
+</p>
+
+<p>
+  <strong>Lense:</strong>
+  <%= @camera.lense %>
+</p>
+
+<p>
+  <strong>Config:</strong>
+  <%= @camera.config %>
+</p>
+
+<p>
+  <strong>Other info:</strong>
+  <%= @camera.other_info %>
+</p>
+        <br/>
+        <div class="modal-footer">
+          <div class="actions">
+            <%= link_to 'Edit', edit_camera_path(@camera) , :class => 'btn btn-warning '  %>
+            <%= link_to 'Back', cameras_path , :class => 'btn btn-default '  %>
+          </div></div>
+      </div></div></div></div>

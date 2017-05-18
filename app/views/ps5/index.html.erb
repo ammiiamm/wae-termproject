@@ -1,0 +1,110 @@
+<h1 align="center"><strong>Project: Parking Management</strong></h1>
+<h2 align="center">Problem Set 5: Content Management, Part I</h2>
+<h3 align="center">Powered by Web3 Group <br>(Theekshana, Chawisa)</h3>
+
+<h3>The classification of data content on website</h3>
+<pre>
+  After discussion, all content data in our website is consisted of:
+</pre>
+<p>
+<ul>
+  <li><b>[C1] Users & Roles data:</b> These data is mostly used by admin who will monitor and maintain the information of all website's stakeholders.</li>
+  <li><b>[C2] Sites data:</b> This is the data of site or place that our system will be launched.</li>
+  <li><b>[C3] Zones data:</b> Inside each site, they will have at least one or more than one parking zone that all cameras were setup. Total and Available parking lots for each zone will be updated in this table too by C++ Program</li>
+  <li><b>[C4] Cameras data:</b> All cameras information that connected with our system.</li>
+  <li><b>[C5] Advertisement data:</b> These advertisement content will be in form of image or video only.</li>
+  <li><b>[C6] Parking Lot configuration:</b> By drawing parking lot for each zone, we will get the image information such as parking lot coordinate point or homography matrix that will be used for image processing by C++ Program (This is an external program that will detect the parking lot availability.</li>
+  <li><b>[C7] Parking Lot VDO:</b> By connecting with C++ Program, our website will stream the picture from the selected video.</li>
+</ul>
+</p>
+<pre>
+  Each content will not be allowed to everyone. All of those content can be seen as follow:
+</pre>
+<p>
+<ul>
+  <li><b>[U1] registered users:</b> [C1] only.</li>
+  <li><b>[U2] banned users:</b> cannot see any content.</li>
+  <li><b>[U3] users:</b> [C1], [C5], [C7], can only set up some parking lot configuration but they cannot add or delete it.</li>
+  <li><b>[U4] admin:</b> can see all contents</li>
+  <li><b>[U5] advertisers:</b> [C1], [C5], [C7]</li>
+  <li><b>[U6] viewer:</b> [C1], [C7]</li>
+</ul>
+</p>
+
+<h3>Data Model Design</h3>
+<pre>
+  After we classified all content on our website, we designed the relationship between each entity as follow:
+</pre>
+<center><img src="/assets/New_Conceptual1.png" width="60%" heigh="60%"></center>
+<br>
+<pre>
+  Within each entity, it contains many fields and constraints as follow:
+</pre>
+<center><img src="/assets/New_Conceptual2.png" width="60%" heigh="60%"></center>
+<br>
+<pre>After that, from above conceptual design, it was converted into logical design as follow:</pre>
+<center><img src="/assets/New_Logical1.png" width="60%" heigh="60%"></center>
+<br>
+<h3>System Design and Workflow for all contents</h3>
+<pre>
+  Refer from our PS4, below image illustrate the flow that all stakeholder will have to follow it.
+</pre>
+<center><img src="/assets/login_flow.png" width="60%" heigh="60%"></center>
+<pre>
+  However, after they log in to our system (at the blue main page), refer to the diagram, it said that there are various activites.
+  Actually, all participate will be able to see different functions on our website due to their different role.
+  To provide a clear picture, we do make page flow for each type of role as follow:
+</pre>
+<p>
+  <ul>
+  <li><b>[U1] registered users:</b> <a href="/assets/Registered_pf.pdf">Page Flow After Logged in</a></li>
+  <li><b>[U2] banned users:</b> <a href="/assets/Banned_pf.pdf">Page Flow After Logged in</a></li>
+  <li><b>[U3] users:</b> <a href="/assets/User_pf.pdf">Page Flow After Logged in</a></li>
+  <li><b>[U4] admin:</b> <a href="/assets/Admin_pf.pdf">Page Flow After Logged in</a></li>
+  <li><b>[U5] advertisers:</b> <a href="/assets/Advertiser_pf.pdf">Page Flow After Logged in</a></li>
+  <li><b>[U6] viewer:</b> <a href="/assets/Viewer_pf.pdf">Page Flow After Logged in</a></li>
+</ul>
+</p>
+
+<pre>
+  Note that all page flows are made in PDF form. All blue button or image on PDF can be clicked if you use an appropriate tool for viewing document.
+  We recommend you to open PDF with your local built-in PDF Program.
+</pre>
+
+<h3>Versioning System</h3>
+<pre>
+  Within our website, all information are based on the current version. It is no need to keep track on the old data
+  because an objective of our website is to view the latest information. However, it doesn't mean that all data will be free to add/edit/delete.
+  For instance, site information and zone information should be the static information. In order to keep in charge on those static information,
+  we design the database system for logging user who updated the latest information with the time that they updated too.
+</pre>
+<!--<h3>Write UATs</h3>-->
+
+<h3>Access as admin</h3>
+<pre>
+  User account for accessing our website (with admin role) was sent to Dr.Matt and P'Tammy's emails.
+</pre>
+<!--
+username: inspector
+password: lesiy[vk0kipN
+role: admin
+-->
+
+<!--
+- Think about how to classify each of the types of content on your site. Articles, comments on articles, news items, questions and answers, documents to be approved or rejected with comments, and so on. Each type of content will require a different flavor of data model and moderation/approval/versioning process.
+- Design your content data model and discuss the implications of your design choices with potential users of the system.
+In general, there should be at least one category of user-submitted content with authoring workflow
+specific to your project and at least one question and answer forum.
+However, the specifics will be very dependent on your project’s requirements.
+Document the design and your discussions on your site.
+- Specify the workflow for each kind of content on your site and discuss the implications of your design choices with potential users of the sytem.
+Document the workflow design and your discussions on your site.
+- Design your versioning system.
+What is the versioning system for each type of content?
+Do you need a complete history of every version, or just a current version with the author of the last version?
+Make sure you think carefully about the needs of the user community. Document the versioning design on your site.
+- Write UATs for a “skeletal” implmentation of the workflow for at least one type of content on your site then get the UATs to pass.
+Users should be able to get something up on your server and see it published.
+- Put your work online and commit to your Git repository when you are done.
+As with Problem set 4, you should give us access to an administrator account so we can see your document workflow in action.
+-->

@@ -1,0 +1,2 @@
+json.extract! configuration, :id, :name, :config_status, :site_id, :user_id, :camera_id, :zone_id, :slotconfiguration, :roihomo, :created_at, :updated_at
+json.url configuration_url(configuration, format: :json)

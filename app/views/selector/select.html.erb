@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<style type="text/css">
+  html,
+  body {
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  /* Scale canvas with resize attribute to full size */
+  canvas[resize] {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+
+<html lang="en">
+<head>
+  <script>
+    var globalSelection;
+    function selector(id) {
+      globalSelection = "<%= @random_string %>";
+      var camera = id;
+      var http = new XMLHttpRequest();
+      var url = "/cameras/" + camera + ".json";
+      http.open("GET", url, true);
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      http.send("test");
+      http.onreadystatechange = function () {
+        if (http.readyState == 4 && http.status == 200) {
+          responseJsonParse = JSON.parse(http.response);
+          var stringgen = 'I ' + responseJsonParse.ip_address + " " + "<%= @random_string %>";
+          getImage(stringgen, "<%= @random_string %>");
+        }
+      }
+    }
+    function getImage(stringgen, id) {
+      var http = new XMLHttpRequest();
+      var url = "/camcontrol/generateimage/?string=" + stringgen;
+      http.open("GET", url, true);
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      http.send("test");
+      http.onreadystatechange = function () {
+        if (http.readyState == 4 && http.status == 200) {
+          setTimeout(function () {
+            document.getElementById("showimage").src = '/' + id + '.jpg';
+            var img = document.getElementById('showimage');
+            img.style.visibility = 'visible';
+            var button = document.getElementById('showbutton');
+            button.style.visibility = 'visible';
+          }, 6000);
+        }
+      }
+    }
+    function selected() {
+      mainRunSelector(globalSelection);
+    }
+    paper.install(window);
+    window.onload = function () {
+      //mainSelector("/1.jpg")
+      $('#1').modal({
+        show: 'true'
+      });
+    }
+  </script>
+  <div class="modal fade" id="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Please choose a camera from the list</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid well span6">
+            <div class="row-fluid">
+              <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Camera
+                  <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <% @cameras.each do |camera| %>
+                      <li id="cameralist">
+                        <a onclick="selector(<%= camera.id%>)" href="#">Camera Name - <%= camera.name %> Camera IP
+                          - <%= camera.ip_address %></a></li>
+                  <% end %>
+                </ul>
+              </div>
+              <center>
+                <br/>
+                <img id="showimage" src="" style="width:500px;height:320px;visibility:hidden">
+                <p>
+                  <br/>
+                  <button onclick="selected()" id="showbutton" type="button" class="btn btn-success" style="visibility:hidden">Use
+                    This Camera
+                  </button>
+                </p>
+              </center>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <!-- <h3 class="page-header">Demo:</h3> -->
+        <div class="well well-lg">
+          <div class="img-container">
+            <canvas id="myCanvas" width="800" height="480"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <!-- <h3 class="page-header">Data:</h3> -->
+        <div class="docs-data">
+          <div class="input-group">
+            <label class="input-group-addon" for="dataX">X</label>
+            <input class="form-control" id="dataX" type="text" placeholder="x">
+            <span class="input-group-addon">px</span>
+          </div>
+          <div class="input-group">
+            <label class="input-group-addon" for="dataY">Y</label>
+            <input class="form-control" id="dataY" type="text" placeholder="y">
+            <span class="input-group-addon">px</span>
+          </div>
+          <div class="input-group">
+            <label class="input-group-addon" for="dataWidth">Selected Point</label>
+            <input class="form-control" id="dataWidth" type="text" placeholder="">
+            <span class="input-group-addon"></span>
+          </div>
+          <div class="input-group">
+            <label class="input-group-addon" for="dataHeight">Selected Points</label>
+            <input class="form-control" id="dataHeight" type="text" placeholder="">
+            <span class="input-group-addon"></span>
+          </div>
+
+          <div class="input-group">
+            <label class="input-group-addon" for="dataHeight">Selected Slots</label>
+            <input class="form-control" id="totalSelected" type="text" placeholder="">
+            <span class="input-group-addon"></span>
+          </div>
+
+          <span class="input-group">
+          <label class="input-group-addon" for="dataHeight">x0</label>
+          <input class="form-control" id="hx0" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight">y0</label>
+            <input class="form-control" id="hy0" type="text" placeholder="">
+        </span>
+
+          <span class="input-group">
+          <label class="input-group-addon" for="dataHeight">x1</label>
+          <input class="form-control" id="hx1" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight">y1</label>
+            <input class="form-control" id="hy1" type="text" placeholder="">
+        </span>
+
+          <span class="input-group">
+          <label class="input-group-addon" for="dataHeight">x2</label>
+          <input class="form-control" id="hx2" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight">y2</label>
+            <input class="form-control" id="hy2" type="text" placeholder="">
+        </span>
+
+          <span class="input-group">
+          <label class="input-group-addon" for="dataHeight">x3</label>
+          <input class="form-control" id="hx3" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight">y3</label>
+            <input class="form-control" id="hy3" type="text" placeholder="">
+        </span>
+
+          <div class="input-group">
+            <label class="input-group-addon" for="dataHeight">Homography Matrix</label>
+          </div>
+
+          <span class="input-group">
+          <label class="input-group-addon" for="dataHeight"></label>
+          <input class="form-control" id="h1" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight"></label>
+            <input class="form-control" id="h2" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight"></label>
+            <input class="form-control" id="h3" type="text" placeholder="">
+        </span>
+
+          <span class="input-group">
+          <label class="input-group-addon" for="dataHeight"></label>
+          <input class="form-control" id="h4" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight"></label>
+            <input class="form-control" id="h5" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight"></label>
+            <input class="form-control" id="h6" type="text" placeholder="">
+        </span>
+
+          <span class="input-group">
+          <label class="input-group-addon" for="dataHeight"></label>
+          <input class="form-control" id="h7" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight"></label>
+            <input class="form-control" id="h8" type="text" placeholder="">
+            <label class="input-group-addon" for="dataHeight"></label>
+            <input class="form-control" id="h9" type="text" placeholder="">
+        </span>
+          <div class="input-group">
+            <label class="input-group-addon" for="dataHeight">Number of slots</label>
+          </div>
+          <span class="input-group">
+            <label class="input-group-addon" for="dataHeight"></label>
+            <input class="form-control" id="numberofslots" type="text" placeholder="">
+        </span>
+          <!--<span class="input-group-addon"></span>-->
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Zone
+              <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <% @zone.each do |zone| %>
+                  <li><a onclick="globalZone(<%= zone.id%>)" href="#"> <%= zone.name %> </a></li>
+              <% end %>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-10 docs-toggles">
+        <button id="fillBox" type="button" class="btn btn-info">Fill Box</button>
+        <button id="ClearSelection" type="button" class="btn btn-info">Clear Selection</button>
+        <button id="RemoveLastClick" type="button" class="btn btn-info">Remove Last Click</button>
+        <button id="ConfirmSelection" type="button" class="btn btn-info">Confirm Selection</button>
+        <button id="download" type="button" class="btn btn-info">Download Config</button>
+        <button id="CalcHomo" type="button" class="btn btn-info">Calculate Homography</button>
+        <button id="AddLeft" type="button" class="btn btn-info">Add Left</button>
+        <button id="AddRight" type="button" class="btn btn-info">Add Right</button>
+        <button id="easyslot" type="button" class="btn btn-info">Add Slots</button>
+
+      </div>
+    </div>
+  </div>
+
+  <ul class="dropdown-menu">
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+  </ul>

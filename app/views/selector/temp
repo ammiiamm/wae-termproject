@@ -1,0 +1,87 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!DOCTYPE html>
+        <style type="text/css">
+          html,
+          body {
+            margin: 0;
+            overflow: hidden;
+            height: 100%;
+          }
+          /* Scale canvas with resize attribute to full size */
+          canvas[resize] {
+            width: 100%;
+            height: 100%;
+          }
+        </style>
+
+
+        <html lang="en">
+        <head>
+          <script type="text/javascript">
+            paper.install(window);
+            window.onload = function() {
+              document.getElementById("fillBox").addEventListener("click", fillBox);
+              document.getElementById("ClearSelection").addEventListener("click", ClearSelection);
+              document.getElementById("RemoveLastClick").addEventListener("click", RemoveLastClick);
+              document.getElementById("ConfirmSelection").addEventListener("click", ConfirmSelection);
+              paper.setup('myCanvas');
+              var raster = new Raster('http://www.bestcontractors.co/wp-content/uploads/2016/08/Parking-lot.jpg');
+              raster.position = view.center;
+              var NumOfclick = 0;
+              var SelectorArray = [];
+              // Create a simple drawing tool:
+              var tool = new Tool();
+              var SelectorPath = new paper.Path();
+              SelectorPath.strokeColor = 'red';
+              SelectorPath.strokeWidth = 4;
+              var start;
+              tool.onMouseDown = function(event) {
+                if (NumOfclick == 0)
+                {
+                  SelectorPath.moveTo(event.point);
+                  console.log(event.point);
+                  SelectorArray.push(event.point);
+                }
+                else {
+                  console.log(event.point);
+                  SelectorPath.lineTo(event.point);
+                  SelectorArray.push(event.point);
+                }
+                paper.view.draw();
+                NumOfclick++;
+              }
+              function fillBox() {
+                SelectorPath.lineTo(SelectorArray[0]);
+                paper.view.draw();
+              }
+              function ClearSelection() {
+                SelectorPath.clear();
+                SelectorArray = [];
+                NumOfclick = 0;
+                paper.view.draw();
+              }
+              function RemoveLastClick() {
+                SelectorArray.splice((NumOfclick-1),1);
+                SelectorPath.removeSegment((NumOfclick-1));
+                NumOfclick--;
+                paper.view.draw();
+              }
+              function ConfirmSelection() {
+                console.log(SelectorArray);
+              }
+            }
+          </script>

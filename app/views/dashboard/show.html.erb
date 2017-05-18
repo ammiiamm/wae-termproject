@@ -1,0 +1,53 @@
+<script>
+  function runFunction()
+  {
+    runFunctionn();
+  }
+  setInterval(runFunction,2000);
+
+</script>
+<div class="container-fluid main-container">
+  <div class="col-md-2 sidebar">
+    <ul class="nav nav-pills nav-stacked">
+      <% @configurations.each do |configuration| %>
+          <% if configuration.id == @Selected%>
+              <li id = <%= configuration.id.to_s %> class="active"><a href="#" onclick="ChangeDash(<%= configuration.id.to_s %>,<%= @configurations.size %>,<%= configuration.zone_id %>)"> <%=configuration.name %> </a></li>
+           <% else %>
+              <li id = <%= configuration.id.to_s %> class="deactivate"><a href="#" onclick="ChangeDash(<%= configuration.id.to_s %>,<%= @configurations.size %>,<%= configuration.zone_id %>)"> <%=configuration.name %></a></li>
+          <% end %>
+      <% end %>
+
+    </ul>
+  </div>
+  <div class="col-md-10 content">
+    <div class="panel panel-default">
+      <center><h1> Configuration Name
+      <p id="ConfigName"><%=@configurations.first.name %> </p>
+      </h1></center>
+      <div class="panel-heading">
+         Video Analytics
+      </div>
+      <div class="panel-body">
+        <div class="modal-body row">
+          <div class="col-md-6">
+            <video id="vidMain" width="640" height="380" controls>
+              <source id="videoMain" src="http://127.0.0.1:8081/<%= @configurations.first.id %>.ogg" type="video/ogg; codecs=theora">
+            </video>          </div>
+          <div class="col-md-6">
+            <div id="chart-1" style="height: 380px;width: 660px"></div>          </div>
+        </div>
+        <script> drawgraph(<%= @configurations.first.zone_id %>); </script>
+      </div>
+      <div class="panel-heading">
+        Advertisement
+      </div>
+      <div class="panel-body">
+        Advetising
+      </div>
+    </div>
+  </div>
+  <footer class="pull-left footer">
+    <p class="col-md-12">
+    </p>
+  </footer>
+</div>

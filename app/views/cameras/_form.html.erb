@@ -1,0 +1,65 @@
+
+<%= form_for(@camera) do |f| %>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <% if current_page?(new_camera_path) %>
+            <h2><span class="label label-success label-block">New Camera</span></h2>
+        <% else %>
+            <h2><span class="label label-warning label-block">Edit Camera</span></h2>
+        <% end %>
+        <div class="modal-header" align="center">
+          <img class="img" id="img_logo" height="10%" weight="10%" src="/assets/batch_batch_camera.jpg" >
+          </button>
+        </div>
+        <div id="div-forms">
+          <div class="modal-body">
+  <% if @camera.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@camera.errors.count, "error") %> prohibited this camera from being saved:</h2>
+
+      <ul>
+      <% @camera.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_address %><br>
+    <%= f.text_field :ip_address, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :cam_type %><br>
+    <%= f.text_field :cam_type, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :lense %><br>
+    <%= f.text_field :lense, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :config %><br>
+    <%= f.text_field :config, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :other_info %><br>
+    <%= f.text_field :other_info, class: 'form-control'  %>
+  </div>
+                  <br/>
+            <div class="modal-footer">
+  <div class="actions">
+    <%= f.submit 'Submit', :class => 'btn btn-primary ' %>
+    <%= link_to 'Back', cameras_path , :class => 'btn btn-default '  %>
+  </div></div>
+<% end %>
+
+</div>
+<div>
+</div>
+</div>
+</div>
+</div>

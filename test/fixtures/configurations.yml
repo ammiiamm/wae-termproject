@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: MyString
+  config_status: false
+  site_id: 1
+  user_id: 1
+  camera_id: 1
+  zone_id: 1
+  slotconfiguration: "/home/theekshana/Documents/obs-studio/Doxyfile"
+  roihomo: "/home/theekshana/Documents/obs-studio/Doxyfile"
+
+two:
+  id: 2
+  name: MyString
+  config_status: false
+  site_id: 1
+  user_id: 1
+  camera_id: 1
+  zone_id: 1
+  slotconfiguration: "/home/theekshana/Documents/obs-studio/Doxyfile"
+  roihomo: "/home/theekshana/Documents/obs-studio/Doxyfile"

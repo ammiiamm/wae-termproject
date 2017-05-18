@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: registered
+
+two:
+  id: 2
+  name: banned
+
+three:
+  id: 3
+  name: user
+
+four:
+  id: 4
+  name: admin
+

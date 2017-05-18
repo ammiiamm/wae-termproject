@@ -1,0 +1,62 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <h2><span class="label label-info label-block">Preview Configuration</span></h2>
+
+    <div class="modal-header" align="center">
+      <img class="img" id="img_logo" height="10%" weight="10%" src="/assets/batch_batch_data.jpg" >
+      </button>
+    </div>
+    <div id="div-forms">
+      <div class="modal-body">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @configuration.name %>
+</p>
+
+<p>
+  <strong>Config status:</strong>
+  <%= @configuration.config_status %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @configuration.site.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @configuration.user.username %>
+</p>
+
+<p>
+  <strong>Camera:</strong>
+  <%= @configuration.camera.name %>
+</p>
+
+<p>
+  <strong>Zone:</strong>
+  <%= @configuration.zone.name %>
+</p>
+
+<p>
+  <strong>Slotconfiguration:</strong>
+  <%= @configuration.slotconfiguration %>
+</p>
+
+<p>
+  <strong>Roihomo:</strong>
+  <%= @configuration.roihomo %>
+</p>
+
+        <br/>
+        <div class="modal-footer">
+          <div class="actions">
+            <%= link_to 'Edit', edit_configuration_path(@configuration) , :class => 'btn btn-warning '  %>
+            <%= link_to 'Back', configurations_path , :class => 'btn btn-default '  %>
+          </div></div>
+
+
+      </div></div></div></div></div>

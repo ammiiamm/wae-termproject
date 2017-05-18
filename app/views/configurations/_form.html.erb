@@ -1,0 +1,63 @@
+<%= form_for(@configuration) do |f| %>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <% if current_page?(new_configuration_path) %>
+            <h2><span class="label label-success label-block">New Configuration</span></h2>
+        <% else %>
+            <h2><span class="label label-warning label-block">Edit Configuration</span></h2>
+        <% end %>
+        <div class="modal-header" align="center">
+          <img class="img" id="img_logo" height="10%" weight="10%" src="/assets/batch_batch_data.jpg" >
+          </button>
+        </div>
+        <div id="div-forms">
+          <div class="modal-body">
+  <% if @configuration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@configuration.errors.count, "error") %> prohibited this configuration from being saved:</h2>
+
+      <ul>
+      <% @configuration.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :config_status %><br>
+    <%= f.check_box :config_status %>
+  </div>
+  <div class="field">
+      <%= f.label :site_id %><br>
+    <%= f.collection_select :site_id, Site.order(:name), :id, :name, {:prompt => 'Please select'} %>
+ </div>
+    <div class="field">
+      <%= f.label :zone_id %><br>
+      <%= f.collection_select :zone_id, Zone.order(:name), :id, :name, {:prompt => 'Please select'} %>
+    </div>
+    <div class="field">
+      <%= f.label :camera_id %><br>
+      <%= f.collection_select :camera_id, Camera.order(:name), :id, :name, {:prompt => 'Please select'} %>
+    </div>
+
+  <div class="field">
+    <%= f.label :slotconfiguration %><br>
+    <%= f.file_field :slotconfiguration %>
+  </div>
+    <div class="field">
+    <%= f.label :roihomo %><br>
+    <%= f.text_field :roihomo %>
+  </div>
+            <br/>
+            <div class="modal-footer">
+              <div class="actions">
+                <%= f.submit 'Submit', :class => 'btn btn-primary ' %>
+                <%= link_to 'Back', configurations_path , :class => 'btn btn-default '  %>
+              </div></div>
+<% end %>
+</div></div></div></div>

@@ -1,0 +1,117 @@
+<script>
+  function toggleOn() {
+    $('#toggle-trigger').bootstrapToggle('on')
+  }
+  function toggleOff() {
+    $('#toggle-trigger').bootstrapToggle('off')
+  }
+  function startVideo(id) {
+    var http = new XMLHttpRequest();
+    var url = "/camcontrol/start?id="+ id;
+    http.open("GET", url, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("test");
+    http.onreadystatechange = function () {
+      if (http.readyState == 4 && http.status == 200) {
+      }
+    };
+    var vId = 'myVideo' + id;
+    setTimeout(function(){
+      var video = document.getElementById(vId);
+      video.load();
+    }, 1000);
+  }
+  function stopVideo(id) {
+    var http = new XMLHttpRequest();
+    var url = "/camcontrol/stop?id="+ id;
+    http.open("GET", url, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("test");
+    http.onreadystatechange = function () {
+      if (http.readyState == 4 && http.status == 200) {
+      }
+    };
+    setTimeout(function(){
+      $('#'+id).modal('hide');
+    }, 1000);
+  }
+</script>
+
+<style>
+  .close {
+    display: none;
+  }
+  .modal-dialog{
+    width: 700px;
+  }
+</style>
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<div class="container">
+  <h2>Listing Cameras <%= link_to 'New Camera', new_camera_path, :class => "btn btn-success" %></h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>IP Address</th>
+      <th>Camera Type</th>
+      <th>Lense</th>
+      <th>Configuration</th>
+      <th>Other Information</th>
+      <th>Action</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @cameras.each do |camera| %>
+        <tr>
+          <td><%= camera.name %></td>
+          <td><%= camera.ip_address %></td>
+          <td><%= camera.cam_type %></td>
+          <td><%= camera.lense %></td>
+          <td><%= camera.config %></td>
+          <td><%= camera.other_info %></td>
+
+          <td><p class="btn btn-info" onclick="startVideo(<%= camera.id %>)" data-toggle="modal" data-target="#<%= camera.id %>"> Show </p>
+          <%= link_to 'Edit', edit_camera_path(camera),:class => "btn btn-warning" %>
+          <%= link_to 'Destroy', camera, :class => "btn btn-danger" , method: :delete, data: {confirm: 'Are you sure?'} %>
+        </tr>
+        <div class="modal fade" id="<%= camera.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><%= camera.name %></h4>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid well span6">
+                  <div class="row-fluid">
+                    <span>
+                    <h3><%= camera.name %></h3>
+                    <h6>Ip Address: <%= camera.ip_address %></h6>
+                    <h6>Type: <%= camera.cam_type %></h6>
+                    <h6>Lense: <%= camera.lense %></h6>
+                      <video id="myVideo<%= camera.id %>" width="640" height="380" controls>
+                           <source src="http://127.0.0.1:8080/<%= camera.id %>.ogg" type="video/ogg; codecs=theora">
+                      </video>
+                      <center>
+                      <button onclick="stopVideo(<%= camera.id %>)" type="button" class="btn btn-danger">Close & Stop Streaming</button>
+                        </center>
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    </tbody>
+  </table>
+  <br>
+
+
+</div>
+

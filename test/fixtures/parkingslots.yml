@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  zone_id: 
+  name: MyString
+  status: false
+  point1: 
+  point2: 
+  point3: 
+  point4: 
+
+two:
+  zone_id: 
+  name: MyString
+  status: false
+  point1: 
+  point2: 
+  point3: 
+  point4: 

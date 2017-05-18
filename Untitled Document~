@@ -1,0 +1,1 @@
+:sout=#transcode{vcodec=VP80,vb=2000,acodec=vorb,ab=128,channels=2,samplerate=44100}:display :sout-keep

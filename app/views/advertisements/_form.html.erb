@@ -1,0 +1,98 @@
+<%= form_for(@advertisement) do |f| %>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <% if current_page?(new_advertisement_path) %>
+            <h2><span class="label label-success label-block">New Advertisement</span></h2>
+        <% else %>
+            <h2><span class="label label-warning label-block">Edit Advertisement</span></h2>
+        <% end %>
+        <div class="modal-header" align="center">
+          <img class="img" id="img_logo" height="10%" weight="10%" src="/assets/batch_batch_advertising.jpg" >
+          </button>
+        </div>
+        <div id="div-forms">
+          <div class="modal-body">
+  <% if @advertisement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@advertisement.errors.count, "error") %> prohibited this advertisement from being saved:</h2>
+
+      <ul>
+      <% @advertisement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :add_type, 'Content Type' %><br>
+    <%= f.radio_button :add_type, 1, :checked => true %>
+    <%= label :add_type_image, 'Image' %>
+    <%= f.radio_button :add_type, 2 %>
+    <%= label :add_type_vdo, 'Video' %>
+    </div>
+
+  <div class="field">
+    <%= f.label :contecnt, 'Advertisement content' %><br>
+    <%= f.file_field :contecnt %>
+    <% if not current_page?('/advertisements/new') %>
+    (Current content: <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Preview content</button> )
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.check_box :status %>
+  </div>
+
+    <div class="field">
+      <%= f.label :site_id %><br>
+      <%= f.collection_select :site_id, Site.order(:name), :id, :name, {:prompt => 'Please select'} %>
+    </div>
+    <div class="field">
+      <%= f.label :zone_id %><br>
+      <%= f.collection_select :zone_id, Zone.order(:name), :id, :name, {:prompt => 'Please select'} %>
+    </div>
+
+            <br/>
+            <div class="modal-footer">
+              <div class="actions">
+                <%= f.submit 'Submit', :class => 'btn btn-primary ' %>
+                <%= link_to 'Back', advertisements_path , :class => 'btn btn-default '  %>
+              </div></div>
+<% end %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Preview content</h4>
+      </div>
+      <div class="modal-body">
+        <% if @advertisement.add_type == '1' %>
+            <img src="/uploads/<%= @advertisement.contecnt %>" height="80%" width="80%">
+        <% else %>
+            <video controls>
+              <source src="/uploads/<%= @advertisement.contecnt %>"  type="video/mp4">
+              <source src="/uploads/<%= @advertisement.contecnt %>"  type="video/ogg">
+              <source src="/uploads/<%= @advertisement.contecnt %>"  type="video/3gp">
+              Your browser does not support the video tag.
+            </video>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div>
+</div>
+</div>
+</div>
+</div>

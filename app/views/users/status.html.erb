@@ -1,0 +1,180 @@
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+  var GSite
+  var GUser
+  function selectSite(site)
+  {
+    GSite = site
+  }
+  function selectUser(user)
+  {
+    GUser = user
+  }
+  function addusertosite()
+  {
+    var http = new XMLHttpRequest();
+    var url = "/users/addusertosite?site="+GSite+"&user="+GUser;
+    http.open("GET", url, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("test");
+    http.onreadystatechange = function () {
+      if (http.readyState == 4 && http.status == 200) {
+
+      }
+    }
+    location.reload();
+  }
+
+  function addevents(val,user,site) {
+    var http = new XMLHttpRequest();
+    var url = "/users/sitepermission?site="+site+"&user="+user+"&val="+val+"&do=0";
+    http.open("GET", url, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("test");
+    http.onreadystatechange = function () {
+      if (http.readyState == 4 && http.status == 200) {
+
+      }
+    }
+    location.reload();
+  }
+  function editevents(val,user,site) {
+    var http = new XMLHttpRequest();
+    var url = "/users/sitepermission?site="+site+"&user="+user+"&val="+val+"&do=1";
+    http.open("GET", url, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("test");
+    http.onreadystatechange = function () {
+      if (http.readyState == 4 && http.status == 200) {
+
+      }
+    }
+    location.reload();
+  }
+  function delevents(val,user,site) {
+    var http = new XMLHttpRequest();
+    var url = "/users/sitepermission?site="+site+"&user="+user+"&val="+val+"&do=2";
+    http.open("GET", url, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("test");
+    http.onreadystatechange = function () {
+      if (http.readyState == 4 && http.status == 200) {
+
+      }
+    }
+    location.reload();
+  }
+</script>
+
+
+<div class="container">
+  <h2>User Role Settings</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>E-Mail</th>
+      <th>Username</th>
+      <th>Created on</th>
+      <th>Last signed in on</th>
+      <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+        <tr>
+          <td> <%= user.email %> </td>
+          <td> <%= user.username %> </td>
+          <td> <%= user.created_at %> </td>
+          <td> <%= user.last_sign_in_at %> </td>
+          <td>  <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle " type="button" data-toggle="dropdown" ><%= user.role.name %>
+              <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <% vie = "change?"+"user="+ user.id.to_s + "&role=6"%>
+              <% admin = "change?"+"user="+ user.id.to_s + "&role=4"%>
+              <% adver = "change?"+"user="+ user.id.to_s + "&role=5"%>
+              <% use = "change?"+"user="+ user.id.to_s + "&role=3"%>
+              <% ban = "change?"+"user="+ user.id.to_s + "&role=2"%>
+              <% reg = "change?"+"user="+ user.id.to_s + "&role=1"%>
+              <li><a href=<%= admin %>>Admin</a></li>
+              <li><a href=<%= adver %>>Advertiser</a></li>
+              <li><a href=<%= ban %>>Banned</a></li>
+              <li><a href=<%= reg %>>Registered</a></li>
+              <li><a href=<%= use %>>User</a></li>
+              <li><a href=<%= vie %>>Viewer</a></li>
+            </ul>
+          </div>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="container">
+  <h2>User Permission Settings</h2>
+  </br >
+  Select the Site You want -
+  <span class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Site
+      <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+    <% @site.each do |site| %>
+        <li><a onclick="selectSite(<%= site.id%>)" href="#"> <%= site.name %> </a></li>
+    <% end %>
+    </ul>
+    Select the User You Want
+  </span>
+  <span class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select User
+    <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <% @users.each do |user| %>
+        <li><a onclick="selectUser(<%= user.id%>)" href="#"> <%= user.username %> </a></li>
+    <% end %>
+  </ul>
+</span>
+  <button onclick="addusertosite()" type="button" class="btn btn-success">Add</button>
+
+  <br />   <br />
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Site Name</th>
+      <th>Username</th>
+      <th>Add</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @usersite.each do |user| %>
+        <tr>
+          <td> <%= user.site.name %> </td>
+          <td> <%= user.user.username %> </td>
+          <td> <% if user.add == "1" %>
+            <input  onchange="addevents(0,<%= user.user.id %>,<%= user.site.id %>)" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini">
+               <% else %>
+                <input  onchange="addevents(1,<%= user.user.id %>,<%= user.site.id %>)" type="checkbox"  data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini">
+          <% end %>
+          </td>
+          <td> <% if user.edit == "1" %>
+                <input onchange="editevents(0,<%= user.user.id %>,<%= user.site.id %>)" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini">
+            <% else %>
+                <input  onchange="editevents(1,<%= user.user.id %>,<%= user.site.id %>)" type="checkbox"  data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini">
+            <% end %>
+          </td>
+          <td> <% if user.remove == "1" %>
+                <input  onchange="delevents(0,<%= user.user.id %>,<%= user.site.id %>)" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini">
+            <% else %>
+                <input  onchange="delevents(1,<%= user.user.id %>,<%= user.site.id %>)" type="checkbox"  data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini">
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
